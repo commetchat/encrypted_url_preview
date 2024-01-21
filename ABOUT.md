@@ -20,7 +20,7 @@ The lifecycle of an encrypted url preview is as follows:
 
 `Client` generates their own public/private key pair
 
-`Client` creates a url (referred to as `PROXY_URL`) like so: `https://proxy.commet.chat/url_preview/encrypted/$CLIENT_PUBLIC_KEY/$ENCRYPTED_URL` and requests their homeserver to fetch a preview of this new url.
+`Client` creates a url (referred to as `PROXY_URL`) like so: `https://proxy.commet.chat/url_preview/encrypted/metadata/$CLIENT_PUBLIC_KEY/$ENCRYPTED_URL` and requests their homeserver to fetch a preview of this new url.
 
 #### Homeserver <-> Proxy
 

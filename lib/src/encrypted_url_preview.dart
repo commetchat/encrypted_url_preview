@@ -26,7 +26,7 @@ class EncryptedUrlPreview {
     String encryptedUrl = encryptAndEncodeRequestUrl(uri);
 
     var proxyUrl = proxyServerUrl.replace(
-        path: "$basePath/$clientPublicKey/$encryptedUrl");
+        path: "$basePath/metadata/$clientPublicKey/$encryptedUrl");
     return proxyUrl;
   }
 
