@@ -18,14 +18,15 @@ class EncryptedUrlPreview {
       this.basePath = "/url_preview/encrypted",
       required publicKeyPem}) {
     serverPublicKey = CryptoUtils.rsaPublicKeyFromPem(publicKeyPem);
-    userKeys = generateRSAkeyPair(exampleSecureRandom());
+    userKeys = generateRSAkeyPair(makeSecureRandom());
   }
 
   Uri getPrivatePreviewUrl(Uri uri) {
-    String userKey = encodeUserPublicKey();
+    String clientPublicKey = encodeUserPublicKey();
     String requestUrl = encryptAndEncodeRequestUrl(uri);
 
-    var requestUri = serverUrl.replace(path: "$basePath/$userKey/$requestUrl");
+    var requestUri =
+        serverUrl.replace(path: "$basePath/$clientPublicKey/$requestUrl");
     return requestUri;
   }
 
@@ -93,7 +94,7 @@ class EncryptedUrlPreview {
     return AsymmetricKeyPair<RSAPublicKey, RSAPrivateKey>(myPublic, myPrivate);
   }
 
-  SecureRandom exampleSecureRandom() {
+  SecureRandom makeSecureRandom() {
     final secureRandom = SecureRandom('Fortuna')
       ..seed(
           KeyParameter(Platform.instance.platformEntropySource().getBytes(32)));
