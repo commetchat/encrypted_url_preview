@@ -31,10 +31,10 @@ class EncryptedUrlPreview {
   }
 
   String decryptContentString(String encodedContent, Uint8List key) {
-    return utf8.decode(decryptContent(encodedContent, key));
+    return utf8.decode(decryptContentB64(encodedContent, key));
   }
 
-  Uint8List decryptContent(String encodedContent, Uint8List key) {
+  Uint8List decryptContentB64(String encodedContent, Uint8List key) {
     var bytes = base64Decode(encodedContent);
     var iv = bytes.sublist(0, 16);
     var cipherBytes = bytes.sublist(16);
@@ -47,8 +47,36 @@ class EncryptedUrlPreview {
     return result;
   }
 
-  Uint8List decryptContentKey(String encryptedKey) {
+  Uint8List decryptContent(Uint8List bytes, Uint8List key) {
+    var iv = bytes.sublist(0, 16);
+    var cipherBytes = bytes.sublist(16);
+
+    var decryptor = GCMBlockCipher(AESEngine())
+      ..init(false, ParametersWithIV(KeyParameter(key), iv));
+
+    var result = decryptor.process(cipherBytes);
+
+    return result;
+  }
+
+  Uint8List decryptContentImage(Uint8List encryptedContent) {
+    var encryptedKeyBytes = encryptedContent.sublist(0, 256);
+    var encryptedContentBytes = encryptedContent.sublist(256);
+    var contentKey = decryptContentKey(encryptedKeyBytes);
+
+    print("Got content key:");
+    print(contentKey);
+
+    var content = decryptContent(encryptedContentBytes, contentKey);
+    return content;
+  }
+
+  Uint8List decryptContentKeyB64(String encryptedKey) {
     var bytes = base64Decode(encryptedKey);
+    return decryptContentKey(bytes);
+  }
+
+  Uint8List decryptContentKey(Uint8List bytes) {
     var decryptor = OAEPEncoding.withSHA256(RSAEngine())
       ..init(false, PrivateKeyParameter<RSAPrivateKey>(userKeys.privateKey));
 

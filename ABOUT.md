@@ -22,7 +22,7 @@ The lifecycle of an encrypted url preview is as follows:
 
 `Client` creates a url (referred to as `PROXY_URL`) like so: `https://proxy.commet.chat/url_preview/encrypted/metadata/$CLIENT_PUBLIC_KEY/$ENCRYPTED_URL` and requests their homeserver to fetch a preview of this new url.
 
-#### Homeserver <-> Proxy
+### Homeserver <-> Proxy
 
 `Homeserver` makes an http request to `PROXY_URL`
 
@@ -32,18 +32,27 @@ The lifecycle of an encrypted url preview is as follows:
 
 `ProxyServer` encrypts `CONTENT_KEY` using `CLIENT_PUBLIC_KEY` (now referred to as `ENCRYPTED_CONTENT_KEY`)
 
+#### Image Handling
+If the metadata contains an image, `ProxyServer` will encrypt the image URL using `SERVER_PRIVATE_KEY` and adjust it to point to itself like so: `https://proxy.commet.chat/url_preview/encrypted/image/$CLIENT_PUBLIC_KEY/$ENCRYPTED_IMAGE_URL`, reusing the `CLIENT_PUBLIC_KEY` from the current request. 
+
+The `/encrypted/image` endpoint will download the image and encrypt it with a new content key (`IMAGE_CONTENT_KEY`), which is then encrypted using `CLIENT_PUBLIC_KEY`.
+
+#### HTML Response
+
 `ProxyServer` returns a new html page with metadata tags containing the encrypted tag content, and adds a new tag including `ENCRYPTED_CONTENT_KEY`
 
-#### Homeserver -> Client
+### Homeserver -> Client
 
-`Homeserver` parses the html returned from proxy server the same way it would a regular page, and sends the resulting metadata back to `Client`
+`Homeserver` parses the html returned from proxy server the same way it would a regular page, and sends the resulting metadata back to `Client`. if the response contains an `ENCRYPTED_IMAGE_URL`, `Homeserver` will fetch the encrypted image here.
 
 `Client` decrypts `ENCRYPTED_CONTENT_KEY` using `CLIENT_PRIVATE_KEY`
 
 `Client` decrypts metadata using `CONTENT_KEY`
 
+if there is an image, `Client` will download the image from `Homeserver` and decrypt the image
+
 `Client` enjoys looking at the url preview :)
 
-#### Privacy Achieved!
+### Privacy Achieved!
 
 As you can see, the proxy server is never in direct communcation with the client so cannot know who is requesting the url, And the homeserver never has access to the keys required to know the origin or content of the URL preview
