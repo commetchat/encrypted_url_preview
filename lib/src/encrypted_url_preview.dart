@@ -64,9 +64,6 @@ class EncryptedUrlPreview {
     var encryptedContentBytes = encryptedContent.sublist(256);
     var contentKey = decryptContentKey(encryptedKeyBytes);
 
-    print("Got content key:");
-    print(contentKey);
-
     var content = decryptContent(encryptedContentBytes, contentKey);
     return content;
   }
