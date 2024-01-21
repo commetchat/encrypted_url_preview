@@ -3,8 +3,8 @@ import "dart:typed_data";
 
 import "package:basic_utils/basic_utils.dart";
 import "package:pointycastle/export.dart";
-import 'package:http/http.dart' as http;
-import "package:pointycastle/pointycastle.dart";
+
+// ignore: implementation_imports
 import 'package:pointycastle/src/platform_check/platform_check.dart';
 
 class EncryptedUrlPreview {

@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:encrypted_url_preview/encrypted_url_preview.dart';
 import 'package:test/test.dart';
-import 'package:http/http.dart' as http;
 
 void main() {
   group('A group of tests', () {
@@ -18,17 +17,6 @@ MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmfaEN1UrIYYyBI8sj7DBnugOZQPM1DvHj88c
 
       print("Asking server to get preview of url:");
       print(uri);
-
-      var response = jsonDecode((await http.get(uri)).body);
-      print(response);
-
-      var key = response['commet:content_key'];
-      var contentKey = urlGetter.decryptContentKey(key);
-
-      print(
-          "Unencrypted title: ${urlGetter.decryptContentString(response["og:title"], contentKey)}");
-      print(
-          "Unencrypted description: ${urlGetter.decryptContentString(response["og:description"], contentKey)}");
     });
   });
 }
