@@ -11,7 +11,13 @@ This package is intended to be used in conjunction with a matrix client.
         proxyServerUrl: Uri.parse("https://proxy.commet.chat"),
         // Server public key
         publicKeyPem: """-----BEGIN PUBLIC KEY-----
-MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmfaEN1UrIYYyBI8sj7DBnugOZQPM1DvHj88cAooH/KYw4spB/iN7WcETneDIXRoARYkBb03gsOrFvgIZImCqn2Fc2rrYvY+TYN9bGFefhKyKN7uCj+C15vB+xzEbDeV0a2POkz5hfi4S31qM5YHLnYDF+dUfiiL1amQ6BOnHOinDuaz/uXf6qgRz9eQSrsx6A+B06Ol9m1j6n5JrgNU0dUanXK/CMk45ybs55MB/wuu8v/UYdFd6aTQA3ctdJmyIlDbsR8jZeJg5NwSko8YKEmm6lT1/gY+7jxcZG/3pwDuVCmyZcorkzry9/s90o3wp0zO0NKxMiXPflPBxKRQgpwIDAQAB
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyvjz5ZFY6ry7i/QL1QK9
+zPXKgUYEQOuNsuRN16GjXJuuFZgKSjENPAQQK++dCVfSx65+7yFPpozR1en0O740
+6rcDk9trhvPZQqR4TchTUEd9/HDuSg/ZqX3PpGHBKZppU8qnuaYleCh/DQU52gwj
+YM5B89fF88F6uPoutToiW5q/PyeYZ6z/u/fE69T/RXVKpCg8+IUtl8EhSaX5ScBo
+BrIyz1V+up9z2tGOT9ok4d95pzQ8P/hEKlHMCaiXV8YOZhQbaEsm5osZHn8cPdhH
+QEkaf0edvFSpJHYAV4JP7WOhDmsmRj930xuE5Ue/yg2NhZxUmnmTZjn25d35yZ1x
+UQIDAQAB
 -----END PUBLIC KEY-----""");
 
     var proxyUrl = privatePreviewGetter!.getProxyUrl(url);
