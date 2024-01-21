@@ -8,26 +8,26 @@ import "package:pointycastle/pointycastle.dart";
 import 'package:pointycastle/src/platform_check/platform_check.dart';
 
 class EncryptedUrlPreview {
-  Uri serverUrl;
+  Uri proxyServerUrl;
   String basePath;
   late RSAPublicKey serverPublicKey;
   late AsymmetricKeyPair<RSAPublicKey, RSAPrivateKey> userKeys;
 
   EncryptedUrlPreview(
-      {required this.serverUrl,
+      {required this.proxyServerUrl,
       this.basePath = "/url_preview/encrypted",
       required publicKeyPem}) {
     serverPublicKey = CryptoUtils.rsaPublicKeyFromPem(publicKeyPem);
     userKeys = generateRSAkeyPair(makeSecureRandom());
   }
 
-  Uri getPrivatePreviewUrl(Uri uri) {
-    String clientPublicKey = encodeUserPublicKey();
-    String requestUrl = encryptAndEncodeRequestUrl(uri);
+  Uri getProxyUrl(Uri uri) {
+    String clientPublicKey = encodeClientPublicKey();
+    String encryptedUrl = encryptAndEncodeRequestUrl(uri);
 
-    var requestUri =
-        serverUrl.replace(path: "$basePath/$clientPublicKey/$requestUrl");
-    return requestUri;
+    var proxyUrl = proxyServerUrl.replace(
+        path: "$basePath/$clientPublicKey/$encryptedUrl");
+    return proxyUrl;
   }
 
   String decryptContentString(String encodedContent, Uint8List key) {
@@ -57,7 +57,7 @@ class EncryptedUrlPreview {
     return decrypted;
   }
 
-  String encodeUserPublicKey() {
+  String encodeClientPublicKey() {
     var userPublicKey = CryptoUtils.encodeRSAPublicKeyToPem(userKeys.publicKey);
     var userKeyB64 = base64Encode(utf8.encode(userPublicKey));
     var userKey = Uri.encodeComponent(userKeyB64);
