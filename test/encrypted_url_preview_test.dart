@@ -14,13 +14,13 @@ void main() {
     final urlGetter = EncryptedUrlPreview(
         proxyServerUrl: Uri.parse("https://proxy.commet.chat"),
         publicKeyPem: """-----BEGIN PUBLIC KEY-----
-MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyvjz5ZFY6ry7i/QL1QK9
-zPXKgUYEQOuNsuRN16GjXJuuFZgKSjENPAQQK++dCVfSx65+7yFPpozR1en0O740
-6rcDk9trhvPZQqR4TchTUEd9/HDuSg/ZqX3PpGHBKZppU8qnuaYleCh/DQU52gwj
-YM5B89fF88F6uPoutToiW5q/PyeYZ6z/u/fE69T/RXVKpCg8+IUtl8EhSaX5ScBo
-BrIyz1V+up9z2tGOT9ok4d95pzQ8P/hEKlHMCaiXV8YOZhQbaEsm5osZHn8cPdhH
-QEkaf0edvFSpJHYAV4JP7WOhDmsmRj930xuE5Ue/yg2NhZxUmnmTZjn25d35yZ1x
-UQIDAQAB
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsHm6BWsALNS8QRGX19w7
+60wzxtWOFDJKU2ygrUksDZBNjfErUSEnlyfthGlkDbXLj5jCw350iCPEBL02fdAM
+i1vt6Q9o8l0KlUW+5ZkPdxPqS2P+fzdD0XZyTTSHKXOsxxW6BoTyetkjXjyQcUke
+81QCBZHbrBrDddzjZanxKtThDTs452lOhdSG/od0y3/8I7YMZ8vRroPTp0DXSf7Y
+VMVsGrhN5j+UnsZ9MFTRlsc/n/4MuP3TomyqxFc3XLJaqgCLjnuXbuIZ2bVAbODv
+Ba0WQx4DI7vg9aQc7l1KHMJsZlkZ7yiKolxYKURdHTF1QgtVO0N/xwA9SPIHkGPJ
+BwIDAQAB
 -----END PUBLIC KEY-----""");
 
     test("Generating Key Pair", () async {
